@@ -64,7 +64,7 @@ class HostGroup(object):
                 if line.strip():
                     prefix = line.split('#')[0].strip()
                     self._prefixes.append(prefix)
-        except Exception, e:
+        except Exception as e:
             frameinfo = getframeinfo(currentframe())
             print frameinfo.filename, frameinfo.lineno, e
             raise e
@@ -157,7 +157,7 @@ class PortGroup(object):
                     if port.endswith('-'):
                         port = '{}65535'.format(port)
                     self._ports.append(port)
-        except Exception, e:
+        except Exception as e:
             frameinfo = getframeinfo(currentframe())
             print frameinfo.filename, frameinfo.lineno, e
             raise e
