@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 from os.path import join
 
-from config import Config
-from group import HostGroup, PortGroup
-from parser import Parser
-from renderers.junos import JunosRenderer
-from renderers.ios import IOSRenderer
-from deployers.junos import JunosDeployer
-from deployers.ios import IOSDeployer
-from deployers.iosscp import SCPDeployer
+from .config import Config
+from .group import HostGroup, PortGroup
+from .parser import Parser
+from .renderers.junos import JunosRenderer
+from .renderers.ios import IOSRenderer
+from .deployers.junos import JunosDeployer
+from .deployers.ios import IOSDeployer
+from .deployers.iosscp import SCPDeployer
 
 
 class Device(object):

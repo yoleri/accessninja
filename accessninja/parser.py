@@ -3,8 +3,8 @@ import ntpath
 import re
 import sys
 
-from config import Config
-from rule import TCPRule, ICMPRule
+from .config import Config
+from .rule import TCPRule, ICMPRule
 
 
 class Parser(object):
