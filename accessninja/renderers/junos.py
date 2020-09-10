@@ -17,7 +17,7 @@ class JunosRenderer(object):
         if len(self._device.rendered_groups):
             rendered_config = '\n'.join(self._device.rendered_groups)
 
-        for ruleset_name, rules in self._device.rendered_rules.iteritems():
+        for ruleset_name, rules in self._device.rendered_rules.items():
             ruleset_name += '-v4'
             rendered_config += '\ndelete firewall filter {}'.format(ruleset_name)
             for idx, rule in enumerate(rules):
