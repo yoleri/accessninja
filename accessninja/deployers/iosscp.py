@@ -22,7 +22,7 @@ class SCPDeployer(object):
                 netrc.netrc().authenticators(self._device.name)
             account = Account(name=username, password=password, key=None)
         except Exception as e:
-            print e
+            print(e)
             print("ERROR: could not find device in ~/.netrc file")
             print("HINT: either update .netrc or enter username + pass now.")
             try:
@@ -39,7 +39,7 @@ class SCPDeployer(object):
 
 
 	def progress(filename, size, sent):
-	    print filename + " " + str(size) + " " + str(sent)
+	    print(filename + " " + str(size) + " " + str(sent))
 
 	def connect_ssh(server, port, user, password):
 	    client = paramiko.SSHClient()

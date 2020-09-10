@@ -155,7 +155,7 @@ class Device(object):
             deployer.render_to_file_and_deploy()
 
     def print_rendered_config(self):
-        print self._rendered_config
+        print(self._rendered_config)
 
     def resolve_hostgroup(self, hgname):
         hg = HostGroup(hgname)

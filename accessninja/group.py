@@ -66,7 +66,7 @@ class HostGroup(object):
                     self._prefixes.append(prefix)
         except Exception as e:
             frameinfo = getframeinfo(currentframe())
-            print frameinfo.filename, frameinfo.lineno, e
+            print(frameinfo.filename, frameinfo.lineno, e)
             raise e
 
     def render_junos(self):
@@ -159,7 +159,7 @@ class PortGroup(object):
                     self._ports.append(port)
         except Exception as e:
             frameinfo = getframeinfo(currentframe())
-            print frameinfo.filename, frameinfo.lineno, e
+            print(frameinfo.filename, frameinfo.lineno, e)
             raise e
 
     def render_ios(self):
@@ -177,8 +177,8 @@ class PortGroup(object):
 if __name__ == '__main__':
     hg = HostGroup('qa')
     hg.parse_file()
-    print hg.hosts
-    print hg.render_junos()
+    print(hg.hosts)
+    print(hg.render_junos())
     pg = PortGroup('web_services')
     pg.parse_file()
-    print pg.ports
+    print(pg.ports)

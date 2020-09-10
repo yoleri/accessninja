@@ -20,7 +20,7 @@ class JunosDeployer(object):
                 netrc.netrc().authenticators(self._device.name)
             account = Account(name=username, password=password, key=None)
         except Exception as e:
-            print e
+            print(e)
             print("ERROR: could not find device in ~/.netrc file")
             print("HINT: either update .netrc or enter username + pass now.")
             try:
@@ -48,11 +48,11 @@ class JunosDeployer(object):
             sftp.remove(f.name)
         except IOError as e:
             if e.errno != 2:
-                print "Something wrong while uploading"
+                print("Something wrong while uploading"
                 sys.exit(1)
 
         upload_filename = "/root/config-{}".format(time.strftime("%d-%m-%Y-%H-%M-%S"))
-        print '[{}] Uploading as file: {}'.format(self._device.name, upload_filename)
+        print('[{}] Uploading as file: {}'.format(self._device.name, upload_filename))
         sftp.put(f.name, upload_filename)
         sftp.close()
 
