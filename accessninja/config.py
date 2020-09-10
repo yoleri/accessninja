@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-import ConfigParser
+import configparser
 import os
 
 
 class Config(object):
     def __init__(self):
 
-        config = ConfigParser.ConfigParser()
+        config = configparser.ConfigParser()
         config.read(os.path.expanduser('~/.accessninja/config'))
 
         if not config.has_section('general'):
