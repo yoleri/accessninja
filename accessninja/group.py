@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from config import Config
+from .config import Config
 from inspect import currentframe, getframeinfo
 from netaddr import IPNetwork
 
