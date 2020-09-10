@@ -5,7 +5,7 @@ from tempfile import NamedTemporaryFile
 
 import paramiko
 from Exscript.protocols import SSH2, Account
-from Exscript.protocols import Exception
+from Exscript.protocols import exception as Exception
 from Exscript.util.interact import read_login
 from scp import SCPClient
 from paramiko import SSHClient
