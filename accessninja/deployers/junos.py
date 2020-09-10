@@ -37,6 +37,7 @@ class JunosDeployer(object):
 
         f = NamedTemporaryFile(delete=False)
         print('[{}] Stored temporary config at {}'.format(self._device.name, f.name))
+        f.write(bytes(self._device.rendered_config, encoding='utf-8'))
         f.write(self._device.rendered_config)
         f.flush()
 
