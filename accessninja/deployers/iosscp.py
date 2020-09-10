@@ -21,7 +21,7 @@ class SCPDeployer(object):
             username, acc, password = \
                 netrc.netrc().authenticators(self._device.name)
             account = Account(name=username, password=password, key=None)
-        except Exception, e:
+        except Exception as e:
             print e
             print("ERROR: could not find device in ~/.netrc file")
             print("HINT: either update .netrc or enter username + pass now.")

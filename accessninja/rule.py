@@ -60,7 +60,7 @@ class TCPRule(object):
         if not value.startswith('@') and not value == 'any':
             try:
                 n = IPNetwork(value)
-            except ValueError, e:
+            except ValueError as e:
                 raise Exception(e)
         self._src = (value if n is None else n)
 
@@ -98,7 +98,7 @@ class TCPRule(object):
         if not value.startswith('@') and not value == 'any':
             try:
                 n = IPNetwork(value)
-            except ValueError, e:
+            except ValueError as e:
                 raise Exception(e)
         self._dst = (value if n is None else n)
 
@@ -367,7 +367,7 @@ class ICMPRule(object):
         if not value.startswith('@') and not value == 'any':
             try:
                 n = IPNetwork(value)
-            except ValueError, e:
+            except ValueError as e:
                 raise Exception(e)
         self._src = (value if n is None else n)
 
@@ -397,7 +397,7 @@ class ICMPRule(object):
         if not value.startswith('@') and not value == 'any':
             try:
                 n = IPNetwork(value)
-            except ValueError, e:
+            except ValueError as e:
                 raise Exception(e)
         self._dst = (value if n is None else n)
 

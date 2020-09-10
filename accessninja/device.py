@@ -99,7 +99,7 @@ class Device(object):
         config = Config()
         try:
             f = open('{}/{}'.format(config.devices, name))
-        except Exception, e:
+        except Exception as e:
             print('Could not open device file', e)
             raise e
 

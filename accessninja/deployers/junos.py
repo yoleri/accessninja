@@ -19,7 +19,7 @@ class JunosDeployer(object):
             username, acc, password = \
                 netrc.netrc().authenticators(self._device.name)
             account = Account(name=username, password=password, key=None)
-        except Exception, e:
+        except Exception as e:
             print e
             print("ERROR: could not find device in ~/.netrc file")
             print("HINT: either update .netrc or enter username + pass now.")
@@ -46,7 +46,7 @@ class JunosDeployer(object):
         sftp = paramiko.SFTPClient.from_transport(tr)
         try:
             sftp.remove(f.name)
-        except IOError, e:
+        except IOError as e:
             if e.errno != 2:
                 print "Something wrong while uploading"
                 sys.exit(1)
