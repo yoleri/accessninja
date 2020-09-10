@@ -48,7 +48,7 @@ class JunosDeployer(object):
             sftp.remove(f.name)
         except IOError as e:
             if e.errno != 2:
-                print("Something wrong while uploading"
+                print("Something wrong while uploading")
                 sys.exit(1)
 
         upload_filename = "/root/config-{}".format(time.strftime("%d-%m-%Y-%H-%M-%S"))
