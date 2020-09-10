@@ -33,50 +33,48 @@ class SCPDeployer(object):
                           % self._device.name)
                     sys.exit(2)
 
-        def s(local_conn, line):
-            # print("   %s" % line)
-            local_conn.execute(line)
+            def s(local_conn, line):
+                # print("   %s" % line)
+                local_conn.execute(line)
 
+            def progress(filename, size, sent):
+                print(filename + " " + str(size) + " " + str(sent))
 
-        def progress(filename, size, sent):
-            print(filename + " " + str(size) + " " + str(sent))
+            def connect_ssh(server, port, user, password):
+                client = paramiko.SSHClient()
+                client.load_system_host_keys()
+                client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+                client.connect(server, port, user, password, look_for_keys=False)
+                return client
 
-        def connect_ssh(server, port, user, password):
-            client = paramiko.SSHClient()
-            client.load_system_host_keys()
-            client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-            client.connect(server, port, user, password, look_for_keys=False)
-            return client
+            f = NamedTemporaryFile(delete=False)
+            print('[{}] Stored temporary config at {}'.format(self._device.name, f.name))
+            f.write(self._device.rendered_config)
+            f.flush()
+            #paramiko.common.logging.basicConfig(level=paramiko.common.DEBUG)
 
+            src_file = f.name
+            dst_file = "nvram:running-config"
 
-        f = NamedTemporaryFile(delete=False)
-        print('[{}] Stored temporary config at {}'.format(self._device.name, f.name))
-        f.write(self._device.rendered_config)
-        f.flush()
-        #paramiko.common.logging.basicConfig(level=paramiko.common.DEBUG)
+            ssh = connect_ssh(self._device.name, 22, username, password)
+            scp = SCPClient(ssh.get_transport())
+            print('[{}] dumping ACLs to running-config'.format(self._device.name))
+            scp.put(src_file, dst_file)
+            scp.close()
 
-        src_file = f.name
-        dst_file = "nvram:running-config"
+            if self._device.transport == 'ssh':
+                conn = SSH2(verify_fingerprint=False, debug=0, timeout=30)
+            else:
+                print("ERROR: Unknown transport mechanism: {}".format(self._device.transport))
+                sys.exit(2)
 
-        ssh = connect_ssh(self._device.name, 22, username, password)
-        scp = SCPClient(ssh.get_transport())
-        print('[{}] dumping ACLs to running-config'.format(self._device.name))
-        scp.put(src_file, dst_file)
-        scp.close()
+            conn.set_driver('ios')
+            conn.connect(self._device.name)
+            conn.login(account)
 
-        if self._device.transport == 'ssh':
-            conn = SSH2(verify_fingerprint=False, debug=0, timeout=30)
-        else:
-            print("ERROR: Unknown transport mechanism: {}".format(self._device.transport))
-            sys.exit(2)
-
-        conn.set_driver('ios')
-        conn.connect(self._device.name)
-        conn.login(account)
-
-        conn.execute('term len 0'.format(dst_file))
-        conn.execute('term width 0'.format(dst_file))
-        conn.execute('copy {} running-config\r'.format(dst_file))
-        print('[{}] Done.'.format(self._device.name))
-        ssh.close()
-        f.close()
+            conn.execute('term len 0'.format(dst_file))
+            conn.execute('term width 0'.format(dst_file))
+            conn.execute('copy {} running-config\r'.format(dst_file))
+            print('[{}] Done.'.format(self._device.name))
+            ssh.close()
+            f.close()
