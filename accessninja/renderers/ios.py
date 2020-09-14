@@ -18,7 +18,7 @@ class IOSRenderer(object):
         if len(self._device.rendered_groups):
             rendered_config = '\n'.join(self._device.rendered_groups)
 
-        for ruleset_name, rules in self._device.rendered_rules.iteritems():
+        for ruleset_name, rules in self._device.rendered_rules.items():
             ruleset_name += '-v4'
             rendered_config += '\nno ip access-list extended {}'.format(ruleset_name)
             rendered_config += '\nip access-list extended {}'.format(ruleset_name)
