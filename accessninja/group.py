@@ -137,9 +137,9 @@ class PortGroup(object):
     def parse_file(self, rec_name=None):
         try:
             if rec_name:
-                f = open('{}/{}.ports'.format(self.config.objects, rec_name))
+                f = open('{}/{}.ports'.format(self.config.objects, rec_name), encoding='utf-8', errors='ignore')
             else:
-                f = open('{}/{}.ports'.format(self.config.objects, self.name))
+                f = open('{}/{}.ports'.format(self.config.objects, self.name), encoding='utf-8', errors='ignore')
 
             lines = f.readlines()
 
