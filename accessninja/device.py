@@ -98,7 +98,7 @@ class Device(object):
         self.name = name
         config = Config()
         try:
-            f = open('{}/{}'.format(config.devices, name))
+            f = open('{}/{}'.format(config.devices, name), encoding='utf-8', errors='ignore')
         except Exception as e:
             print('Could not open device file', e)
             raise e
